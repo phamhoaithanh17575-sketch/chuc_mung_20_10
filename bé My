@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thư gửi bé My 💌</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(180deg, #ffe6f0, #ffd1dc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    transition: background 2s ease;
+  }
+
+  /* ---------- PHONG BÌ ---------- */
+  .envelope {
+    width: 250px;
+    height: 180px;
+    background: #ff8fab;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    z-index: 10;
+  }
+
+  .envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 125px solid transparent;
+    border-right: 125px solid transparent;
+    border-bottom: 90px solid #ffb6c1;
+  }
+
+  .envelope::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-left: 125px solid transparent;
+    border-right: 125px solid transparent;
+    border-top: 90px solid #ffb6c1;
+  }
+
+  .envelope.open {
+    transform: rotateX(180deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ---------- HOA Ở GIỮA ---------- */
+  .flower {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    background-image: url('https://png.pngtree.com/png-clipart/20230418/original/pngtree-pink-rose-flower-png-image_9067691.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: translate(-50%, -50%);
+    animation: sway 4s ease-in-out infinite alternate;
+    z-index: 5;
+  }
+
+  @keyframes sway {
+    from { transform: translate(-50%, -50%) rotate(-5deg); }
+    to { transform: translate(-50%, -50%) rotate(5deg); }
+  }
+
+  /* ---------- THIỆP ---------- */
+  .card {
+    display: none;
+    position: relative;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 25px;
+    box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4);
+    text-align: center;
+    padding: 30px 40px;
+    max-width: 650px;
+    z-index: 20;
+    animation: fadeIn 2s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card h1 {
+    color: #e91e63;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: showText 1.5s ease forwards 1s;
+  }
+
+  .card p {
+    color: #b00040;
+    font-size: 1.1em;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px #fff;
+    line-height: 1.7;
+    opacity: 0;
+    animation: showText 2.5s ease forwards 2.2s;
+  }
+
+  @keyframes showText {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- TRÁI TIM ---------- */
+  .heart {
+    position: absolute;
+    color: #ff4d6d;
+    font-size: 24px;
+    animation: fly 5s linear infinite;
+    opacity: 0.8;
+    z-index: 1;
+  }
+
+  @keyframes fly {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-800px) scale(0.5); opacity: 0; }
+  }
+
+  /* ---------- HOA HỒNG BAY ---------- */
+  .rose {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-image: url('https://png.pngtree.com/png-clipart/20230418/original/pngtree-pink-rose-flower-png-image_9067691.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: fall linear infinite;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-10px) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* ---------- DÒNG CHỮ SAU CÙNG ---------- */
+  .final-text {
+    display: none;
+    position: absolute;
+    text-align: center;
+    color: #d00060;
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px white;
+    animation: appear 3s ease forwards;
+    z-index: 100;
+  }
+
+  @keyframes appear {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
+</head>
+<body>
+
+<div class="envelope" id="envelope"></div>
+<div class="flower"></div>
+
+<div class="card" id="card">
+  <h1>💖 Chúc mừng 20/10 bé My 💖</h1>
+  <p>
+    Chúc bé My 20/10 thật xinh đẹp, luôn may mắn và thành công trên con đường sự nghiệp.<br>
+    Mong tình yêu của chúng mình cũng trở nên đẹp hơn, tốt hơn mỗi ngày.<br>
+    Dù có thể sẽ gặp nhiều trắc trở nhưng mong chúng mình sẽ vượt qua và hạnh phúc bên nhau.<br>
+    Cuối cùng thì chúc bé My 20/10 có thật nhiều sự xinh đẹp, thật nhiều may mắn và đặc biệt sẽ mãi là người con gái tớ yêu nhất ạ 💞
+  </p>
+</div>
+
+<div class="final-text" id="finalText">
+  Tớ yêu cậu rất nhiều 💖<br>  
+  Bằng tất cả sự chân thành và nghiêm túc của tớ 💖
+</div>
+
+<script>
+  const envelope = document.getElementById('envelope');
+  const card = document.getElementById('card');
+  const finalText = document.getElementById('finalText');
+  let stage = 0;
+  let heartInterval;
+
+  // Nhấn lần 1 → mở thư
+  envelope.addEventListener('click', () => {
+    if (stage === 0) {
+      envelope.classList.add('open');
+      setTimeout(() => {
+        envelope.style.display = 'none';
+        card.style.display = 'block';
+      }, 600);
+      heartInterval = setInterval(createHeart, 300);
+      stage = 1;
+    }
+  });
+
+  // Nhấn lần 2 → hiện hoa hồng rơi + dòng chữ
+  card.addEventListener('click', () => {
+    if (stage === 1) {
+      clearInterval(heartInterval);
+      card.style.transition = "opacity 1s ease";
+      card.style.opacity = 0;
+      document.body.style.background = "linear-gradient(180deg, #fff0f5, #ff9eb5)";
+      setTimeout(() => {
+        card.style.display = 'none';
+        createRoseRain();
+        finalText.style.display = 'block';
+      }, 1000);
+      stage = 2;
+    }
+  });
+
+  // Trái tim bay
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.textContent = '❤';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.animationDuration = 4 + Math.random() * 3 + 's';
+    heart.style.fontSize = 16 + Math.random() * 24 + 'px';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+  }
+
+  // Hoa hồng bay
+  function createRoseRain() {
+    setInterval(() => {
+      const rose = document.createElement('div');
+      rose.classList.add('rose');
+      rose.style.left = Math.random() * window.innerWidth + 'px';
+      rose.style.animationDuration = 5 + Math.random() * 4 + 's';
+      rose.style.width = 60 + Math.random() * 60 + 'px';
+      rose.style.height = rose.style.width;
+      document.body.appendChild(rose);
+      setTimeout(() => rose.remove(), 9000);
+    }, 250);
+  }
+</script>
+
+</body>
+</html>
